@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klivio | Innovate. Develop. Deliver.</title>
+    
+    <!-- Google Fonts: Montserrat for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#060B19',
+                            800: '#0B132B', /* Primary Brand Navy */
+                            700: '#152243',
+                            50: '#F5F7FA',
+                        },
+                        orange: {
+                            500: '#FF6A00', /* Primary Brand Orange */
+                            600: '#E65C00',
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        tightest: '-0.04em',
+                        widest: '0.2em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Analytics (Sample) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <style>
+        /* Smooth fade-in animation utilities */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Custom gradient text for the logo orange */
+        .text-brand-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(135deg, #FF6A00 0%, #E65C00 100%);
+        }
+
+        /* Animated logo floating effect */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotateZ(5deg);
+            }
+        }
+
+        /* Subtle scale pulse animation */
+        @keyframes scalePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Glow effect animation */
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 106, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 106, 0, 0.4);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-glow-pulse {
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-body text-gray-600 antialiased selection:bg-orange-500 selection:text-white bg-white flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="w-full bg-white/90 backdrop-blur-md fixed top-0 z-50 border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex justify-between items-center h-24">
+                
+                <!-- Logo Recreation -->
+            <a href="#" class="flex items-center group">
+                <img src="logo.jpg" alt="Klivio Logo" class="h-16 md:h-20 w-auto object-contain" onerror="this.src='logo.jpg'">
+            </a>
+
+            <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-10">
+                    <a href="#story" class="text-sm font-semibold text-navy-800 hover:text-orange-500 transition-colors uppercase tracking-wide">Our Story</a>
+                    <a href="#services" class="text-sm font-semibold text-navy-800 hover:text-orange-500 transition-colors uppercase tracking-wide">Services</a>
+                    <a href="#values" class="text-sm font-semibold text-navy-800 hover:text-orange-500 transition-colors uppercase tracking-wide">Values</a>
+                    <a href="#contact" class="px-6 py-3 bg-navy-800 text-white text-sm font-bold uppercase tracking-wide hover:bg-orange-500 transition-colors duration-300">
+                        Partner With Us
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-navy-800 focus:outline-none">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-6 py-6 space-y-4 flex flex-col">
+                <a href="#story" class="text-sm font-semibold text-navy-800 uppercase tracking-wide pb-2 border-b border-gray-100">Our Story</a>
+                <a href="#services" class="text-sm font-semibold text-navy-800 uppercase tracking-wide pb-2 border-b border-gray-100">Services</a>
+                <a href="#values" class="text-sm font-semibold text-navy-800 uppercase tracking-wide pb-2 border-b border-gray-100">Values</a>
+                <a href="#contact" class="mt-4 px-6 py-4 bg-navy-800 text-white text-sm font-bold uppercase tracking-wide text-center">Partner With Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24">
+        
+        <!-- HERO SECTION -->
+        <section class="relative bg-navy-50 pt-20 pb-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Copy -->
+                    <div class="lg:col-span-8 fade-in-up">
+                        <div class="inline-block px-4 py-1 border border-orange-500/30 bg-orange-500/10 text-orange-600 font-bold tracking-widest uppercase text-xs mb-8 rounded-full">
+                        Global IT Consulting
+                    </div>
+                    <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] font-heading font-black text-navy-800 leading-[1.05] tracking-tightest mb-8 uppercase">
+                        Innovate.<br>
+                        <span class="text-navy-700">Develop.</span><br>
+                        <span class="text-brand-gradient">Deliver.</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-600 font-light max-w-2xl leading-relaxed mb-10">
+                            Built for businesses that refuse to stand still. We combine deep technology expertise with sharp business thinking to help organisations move faster, scale smarter, and compete globally.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#services" class="inline-flex justify-center items-center px-8 py-4 bg-orange-500 text-white font-bold uppercase tracking-wide hover:bg-navy-800 transition-colors duration-300">
+                                Explore Capabilities
+                            </a>
+                            <a href="#story" class="inline-flex justify-center items-center px-8 py-4 bg-transparent border-2 border-navy-800 text-navy-800 font-bold uppercase tracking-wide hover:bg-navy-800 hover:text-white transition-colors duration-300">
+                                Discover Klivio
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Abstract Graphic -->
+                    <div class="lg:col-span-4 hidden lg:block relative fade-in-up delay-200">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-transparent rounded-full blur-3xl"></div>
+                        <!-- Animated Logo -->
+                        <div class="relative w-full aspect-square flex items-center justify-center">
+                            <img src="logo.jpg" alt="Klivio Logo Animated" class="w-full h-full object-contain animate-float animate-glow-pulse" style="filter: drop-shadow(0 20px 40px rgba(255, 106, 0, 0.15));">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BRAND STORY SECTION -->
+        <section id="story" class="py-24 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+                    
+                    <!-- Sticky Header -->
+                    <div class="md:col-span-5 fade-in-up">
+                        <div class="sticky top-32">
+                            <h2 class="text-orange-500 font-bold tracking-widest text-sm uppercase mb-4">Our Brand Story</h2>
+                            <h3 class="text-4xl md:text-5xl font-heading font-black text-navy-800 leading-tight mb-6">
+                                The Relentless Pursuit of Higher Ground.
+                            </h3>
+                            <div class="w-20 h-1 bg-orange-500 mb-8"></div>
+                        </div>
+                    </div>
+
+                    <!-- Narrative Content -->
+                    <div class="md:col-span-7 space-y-12 fade-in-up delay-100">
+                        <div class="text-xl font-light text-gray-600 leading-relaxed space-y-6">
+                            <p>
+                                Klivio is born from the idea of the climb. In Scandinavian tradition, <strong class="font-semibold text-navy-800">‘kliv’</strong> means to ascend, to rise with purpose. We added ‘-io’ to signal what we are: a modern, connected, borderless force in technology consulting.
+                            </p>
+                            <p>
+                                At Klivio, we don’t just consult — we elevate. Every strategy we craft, every system we build, every problem we solve is a step upward for your business. 
+                            </p>
+                        </div>
+                        
+                        <blockquote class="p-8 bg-navy-50 border-l-4 border-orange-500">
+                            <p class="text-2xl font-heading font-bold text-navy-800 italic leading-snug mb-4">
+                                "Great technology doesn’t just solve problems — it opens possibilities."
+                            </p>
+                            <footer class="text-sm font-bold uppercase tracking-widest text-gray-500">— The Klivio Belief</footer>
+                        </blockquote>
+
+                        <div class="text-lg font-light text-gray-600 leading-relaxed">
+                            <p>
+                                We’re not a vendor. We’re your technology partner for the long climb ahead — standing beside you at every stage of the journey, from strategy to execution, from local to global.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-24 md:py-32 bg-navy-800 text-white">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 fade-in-up">
+                    <div class="max-w-2xl">
+                        <h2 class="text-orange-500 font-bold tracking-widest text-sm uppercase mb-4">What We Do</h2>
+                        <h3 class="text-4xl md:text-5xl font-heading font-black leading-tight">
+                            Global Expertise.<br>Measured Impact.
+                        </h3>
+                    </div>
+                    <p class="text-gray-400 font-light max-w-sm mt-6 md:mt-0 text-lg">
+                        Comprehensive solutions to navigate an increasingly digital world.
+                    </p>
+                </div>
+
+                <!-- Services Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1px bg-navy-700 border border-navy-700">
+                    
+                    <!-- Service 1 -->
+                    <div class="bg-navy-800 p-10 hover:bg-navy-900 transition-colors duration-300 group fade-in-up">
+                        <div class="w-12 h-12 mb-8 text-orange-500 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="compass" class="w-full h-full"></i>
+                        </div>
+                        <h4 class="text-xl font-heading font-bold mb-4">IT Strategy & Consulting</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            Clear roadmaps aligned to your business goals. We bridge the gap between technology capabilities and strategic business outcomes.
+                        </p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-navy-800 p-10 hover:bg-navy-900 transition-colors duration-300 group fade-in-up delay-100">
+                        <div class="w-12 h-12 mb-8 text-orange-500 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="cpu" class="w-full h-full"></i>
+                        </div>
+                        <h4 class="text-xl font-heading font-bold mb-4">Digital Transformation</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            From legacy modernisation to full digital reinvention. Adapting your operations to thrive in a digital-first economy.
+                        </p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-navy-800 p-10 hover:bg-navy-900 transition-colors duration-300 group fade-in-up delay-200">
+                        <div class="w-12 h-12 mb-8 text-orange-500 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="cloud" class="w-full h-full"></i>
+                        </div>
+                        <h4 class="text-xl font-heading font-bold mb-4">Cloud Solutions</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            Architecture, migration & optimisation across AWS, Azure & GCP. Building resilient and scalable cloud infrastructures.
+                        </p>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="bg-navy-800 p-10 hover:bg-navy-900 transition-colors duration-300 group fade-in-up">
+                        <div class="w-12 h-12 mb-8 text-orange-500 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="shield-check" class="w-full h-full"></i>
+                        </div>
+                        <h4 class="text-xl font-heading font-bold mb-4">Cybersecurity Advisory</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            Proactive, risk-based protection from strategy to execution. Securing your critical assets against evolving global threats.
+                        </p>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="bg-navy-800 p-10 hover:bg-navy-900 transition-colors duration-300 group fade-in-up delay-100">
+                        <div class="w-12 h-12 mb-8 text-orange-500 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="network" class="w-full h-full"></i>
+                        </div>
+                        <h4 class="text-xl font-heading font-bold mb-4">Data & AI Consulting</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            Intelligent systems that help you decide faster and act smarter. Transforming raw data into competitive advantages.
+                        </p>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="bg-navy-800 p-10 hover:bg-navy-900 transition-colors duration-300 group fade-in-up delay-200">
+                        <div class="w-12 h-12 mb-8 text-orange-500 group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="settings" class="w-full h-full"></i>
+                        </div>
+                        <h4 class="text-xl font-heading font-bold mb-4">Managed IT Services</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            Reliable, proactive management of your IT environment. Ensuring continuous uptime and operational excellence.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION & VISION SECTION -->
+        <section class="py-24 bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <!-- Mission -->
+                    <div class="fade-in-up">
+                        <div class="text-orange-500 mb-6"><i data-lucide="flag" class="w-10 h-10"></i></div>
+                        <h3 class="text-3xl font-heading font-black text-navy-800 mb-6 uppercase tracking-tight">Our Mission</h3>
+                        <p class="text-xl text-gray-600 font-light leading-relaxed">
+                            "To empower businesses worldwide with technology strategies that are bold in ambition, clear in direction, and built for lasting impact."
+                        </p>
+                    </div>
+                    <!-- Vision -->
+                    <div class="fade-in-up delay-100">
+                        <div class="text-orange-500 mb-6"><i data-lucide="eye" class="w-10 h-10"></i></div>
+                        <h3 class="text-3xl font-heading font-black text-navy-800 mb-6 uppercase tracking-tight">Our Vision</h3>
+                        <p class="text-xl text-gray-600 font-light leading-relaxed">
+                            "To be the most trusted global IT consulting partner for organisations ready to rise — innovative in thinking, relentless in execution, human in approach."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUES SECTION -->
+        <section id="values" class="py-24 md:py-32 bg-navy-50">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-orange-500 font-bold tracking-widest text-sm uppercase mb-4">Our DNA</h2>
+                    <h3 class="text-4xl md:text-5xl font-heading font-black text-navy-800 leading-tight">
+                        Core Values
+                    </h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Value 1 -->
+                    <div class="bg-white p-8 border-t-4 border-orange-500 shadow-sm fade-in-up">
+                        <h4 class="text-2xl font-heading font-bold text-navy-800 mb-4">Clarity</h4>
+                        <p class="text-gray-600 font-light">
+                            Direct, practical advice. Always. We cut through complexity so you can act with confidence.
+                        </p>
+                    </div>
+
+                    <!-- Value 2 -->
+                    <div class="bg-white p-8 border-t-4 border-navy-800 shadow-sm fade-in-up delay-100">
+                        <h4 class="text-2xl font-heading font-bold text-navy-800 mb-4">Ambition</h4>
+                        <p class="text-gray-600 font-light">
+                            We raise the bar for every client. We think big, plan smart, and execute with precision.
+                        </p>
+                    </div>
+
+                    <!-- Value 3 -->
+                    <div class="bg-white p-8 border-t-4 border-orange-500 shadow-sm fade-in-up delay-200">
+                        <h4 class="text-2xl font-heading font-bold text-navy-800 mb-4">Partnership</h4>
+                        <p class="text-gray-600 font-light">
+                            Your success is our success. Every engagement is built on trust, transparency, and shared goals.
+                        </p>
+                    </div>
+
+                    <!-- Value 4 -->
+                    <div class="bg-white p-8 border-t-4 border-navy-800 shadow-sm fade-in-up delay-300">
+                        <h4 class="text-2xl font-heading font-bold text-navy-800 mb-4">Global Mindset</h4>
+                        <p class="text-gray-600 font-light">
+                            World-class thinking, everywhere. We think across borders, time zones, and industries.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section id="contact" class="py-24 md:py-32 bg-orange-500 text-white text-center">
+            <div class="max-w-4xl mx-auto px-6 fade-in-up">
+                <h2 class="text-4xl md:text-6xl font-heading font-black uppercase tracking-tight mb-8">
+                    Ready for the Climb?
+                </h2>
+                <p class="text-xl md:text-2xl font-light mb-12 max-w-2xl mx-auto">
+                Whether you're navigating a digital transformation, scaling your infrastructure, or looking for a long-term technology partner who genuinely cares — we're ready.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a href="mailto:Services@theklivio.com" class="inline-flex justify-center items-center px-10 py-5 bg-navy-800 text-white font-bold uppercase tracking-widest hover:bg-white hover:text-navy-800 transition-colors duration-300">
+                    Email Us
+                </a>
+                <a href="tel:+919930217260" class="inline-flex justify-center items-center px-10 py-5 bg-transparent border-2 border-navy-800 text-navy-800 font-bold uppercase tracking-widest hover:bg-navy-800 hover:text-white transition-colors duration-300">
+                    Call +91 99302 17260
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+    <footer class="bg-navy-900 pt-20 pb-10 border-t border-navy-800">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                
+                <div class="md:col-span-2">
+                    <div class="font-heading font-black text-3xl tracking-tight text-white mb-6">
+                        <span class="text-orange-500">K</span>livio<span class="text-orange-500">.</span>
+                    </div>
+                    <p class="text-gray-400 font-light max-w-sm mb-8 leading-relaxed">
+                        A global IT consulting firm that helps organisations elevate their technology, accelerate their growth, and navigate an increasingly digital world.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
+                            <i data-lucide="linkedin" class="w-6 h-6"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
+                            <i data-lucide="twitter" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                <h4 class="text-white font-bold tracking-widest uppercase text-sm mb-6">Company</h4>
+                <ul class="space-y-4 font-light text-gray-400">
+                    <li><a href="#story" class="hover:text-orange-500 transition-colors">Our Story</a></li>
+                    <li><a href="#values" class="hover:text-orange-500 transition-colors">Core Values</a></li>
+                    <li><a href="mailto:Services@theklivio.com" class="hover:text-orange-500 transition-colors">Services@theklivio.com</a></li>
+                    <li><a href="tel:+919930217260" class="hover:text-orange-500 transition-colors">+91 99302 17260</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold tracking-widest uppercase text-sm mb-6">Expertise</h4>
+                    <ul class="space-y-4 font-light text-gray-400">
+                        <li><a href="#services" class="hover:text-orange-500 transition-colors">Strategy & Consulting</a></li>
+                        <li><a href="#services" class="hover:text-orange-500 transition-colors">Digital Transformation</a></li>
+                        <li><a href="#services" class="hover:text-orange-500 transition-colors">Cloud Solutions</a></li>
+                        <li><a href="#services" class="hover:text-orange-500 transition-colors">Cybersecurity</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Designed by Attribution -->
+            <div class="border-t border-navy-800 pt-8 mb-8 text-center">
+                <p class="text-sm font-light">
+                    <span class="text-gray-400">The Site is Designed by</span>
+                    <a href="https://99s.site" target="_blank" rel="noopener noreferrer" class="text-orange-500 hover:text-orange-400 font-semibold transition-colors">99 Seconds AI (99s.site)</a>
+                </p>
+            </div>
+
+            <div class="border-t border-navy-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 font-light">
+            <div class="mb-4 md:mb-0">
+                &copy; 2026 Klivio Technology Services. Innovate. Develop. Deliver.
+            </div>
+            <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('py-2');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('py-2');
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
